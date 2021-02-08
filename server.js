@@ -10,12 +10,16 @@ const server = http.createServer((req, res) => {
 
     if(req.url == '/'){
         url1 +='index.html';
+        res.statusCode = 200;
     }else if (req.url == '/about'){
         url1 +='about.html';
+        res.statusCode = 200;
     }else if (req.url == '/contact'){
         url1 +='contact.html';
+        res.statusCode = 200;
     }else{
         url1 +='404.html';
+        res.statusCode = 404;
     }
 
     fs.readFile(url1, (err, data) => {
