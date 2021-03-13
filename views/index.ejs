@@ -1,12 +1,82 @@
 <html>
 <head>
-<title>webapp1</title>
-
+<title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/dist/wu-icons-style.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
-<% let namepage = "GJHFGJG"; %>
-<h1 id="change">Hello Worldjgdshkfdghk</h1>
-<h1><%= namepage; %></h1>
+
+<nav>
+    <div class="nav-wrapper blue darken-4">
+        <a href="/" class="brand-logo">Logo</a>
+        <a href="/" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="other">Other</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="other">Other</a></li>
+</ul>
+
+
+<div class="row" style="padding-top: 4%;">
+    <div class="col s4"></div>
+    <div class="col s2">
+        <img
+            alt="Philippines"
+            src="http://purecatamphetamine.github.io/country-flag-icons/3x2/PH.svg"
+            width="128" 
+            height="128"
+        />
+    </div>
+    <div class="col s2">
+        <h5><b><%= weather[0]['location']['name'] %></b></h5>
+        <h6><%= weather[0]['location']['lat'] %>&deg N, <%= weather[0]['location']['long'] %>&deg E %></h6>
+    </div>
+    <div class="col s4"></div>
+</div>
+
+<div class="row center-align">
+    <div class="col s1"></div>
+
+    <% for(forecast of weather[0]['forecast']){ %> 
+        <div class="col s2">
+            <script>
+                var str = "<%= forecast['skytextday'] %>".toLowerCase().replace(/\s/g, "");
+                if(str == "lightrain" || str == "rainshowers"){
+                    str="rain";
+                }
+                if(str == "thunderstorm"){
+                    str="tstorms"
+                }
+                document.write('<i class="wu wu-128 wu-black wu-16 wu-day wu-'+ str +'"></i>');
+            </script>
+            <h6><b><%= forecast['day'] %></b></h6>
+            <script>
+                var months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var datetime = new Date("<%= forecast['date'] %>")
+                var formatted_date = months[datetime.getMonth()] +" "+ datetime.getDate() + "," + datetime.getFullYear()
+                document.write('<h6>'+ formatted_date +'</h6>');
+            </script>
+            <h6><%= forecast['low'] %>&deg C</h6>
+        </div>
+    <% } %> 
+    <div class="col s1"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+    });
+</script>
+
 </body>
 
 </html>
