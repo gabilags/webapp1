@@ -9,18 +9,7 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.fr,Intl.~locale.pt"></script>
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper blue light-4">
-        <a href="personlist" class="brand-logo"><i class="material-icons">schedule</i>Jerwell Gabilagon</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href="">Contact</a></li>
-        </ul>
-    </div>
-</nav>
-
-<ul class="sidenav" id="mobile-demo">
-    <li><a href="">Contact</a></li>
-</ul>
+    <%- include('./partials/nav.ejs') %> 
 
 <div class="row" style="padding-top: 4%;">
     <div class="col s4"></div>
@@ -32,29 +21,28 @@
     </div>
     <div class="col s4">
         <script>
-            let datetime = "";
+            let dt = "";
             let currentDate = "";
             let currentTime = "";
             let timeZ="";
-
             if(val == 'PH'){
-                datetime = '<%= dataList[0]["datetime"] %>';
+                dt = '<%= dataList[0]["datetime"] %>';
                 timeZ = '<%= dataList[0]["timezone"] %>';
             }else if(val == 'RU'){
-                datetime = '<%= dataList[1]["datetime"] %>';
+                dt = '<%= dataList[1]["datetime"] %>';
                 timeZ = '<%= dataList[1]["timezone"] %>';
             }else if(val == 'JP'){
-                datetime = '<%= dataList[2]["datetime"] %>';
+                dt = '<%= dataList[2]["datetime"] %>';
                 timeZ = '<%= dataList[2]["timezone"] %>';
             }else if(val == 'US'){
-                datetime = '<%= dataList[3]["datetime"] %>';
+                dt = '<%= dataList[3]["datetime"] %>';
                 timeZ = '<%= dataList[3]["timezone"] %>';
             }else{
-                datetime = '<%= dataList[4]["datetime"] %>';
+                dt = '<%= dataList[4]["datetime"] %>';
                 timeZ = '<%= dataList[4]["timezone"] %>';
             }
 
-            var time = new Date(datetime);
+            var time = new Date(dt);
             optionstime = {
                 hour: 'numeric', minute: 'numeric', second: 'numeric',
                 hour12: true,
@@ -106,7 +94,7 @@
                         <td><%= person.fullname %> </td>
                         <td><%= person.nationality %> </td>
                         <td><%= person.birthday %> </td>
-                        <td><a class="single" href="/personlist/<%= person._id %> ">[View]</a></td>
+                        <td><a class="single" href="personlist/<%= person._id %>">[View]</a></td>
                         </tr>
                     <% }) %>                  
                 <% } %>

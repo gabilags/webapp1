@@ -24,27 +24,26 @@ app.get('/', function (req, res) {
     res.render('landing');
 })
 
-//api call using Promise.all from node-fetch package
-Promise.all([
-    fetch('http://worldtimeapi.org/api/timezone/Asia/Manila'),
-    fetch('http://worldtimeapi.org/api/timezone/Europe/Moscow'),
-    fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo'),
-    fetch('http://worldtimeapi.org/api/timezone/America/Detroit'),
-    fetch('http://worldtimeapi.org/api/timezone/Asia/Seoul')
-]).then(function (responses) {
-    return Promise.all(responses.map(function (response) {
-        return response.json();
-    }));
-}).then(function (data) {
-    datetime = data;
-}).catch(function (error) {
-    console.log(error);
-});
-
 
 app.get('/personlist', function (req, res) {
     Person.find().sort({createdAt: -1})
         .then((result) => {
+            //api call using Promise.all from node-fetch package
+            Promise.all([
+                fetch('http://worldtimeapi.org/api/timezone/Asia/Manila'),
+                fetch('http://worldtimeapi.org/api/timezone/Europe/Moscow'),
+                fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo'),
+                fetch('http://worldtimeapi.org/api/timezone/America/Detroit'),
+                fetch('http://worldtimeapi.org/api/timezone/Asia/Seoul')
+            ]).then(function (responses) {
+                return Promise.all(responses.map(function (response) {
+                    return response.json();
+                }));
+            }).then(function (data) {
+                datetime = data;
+            }).catch(function (error) {
+                console.log(error);
+            });
             res.render('personlist', {dataList: datetime, persons: result});
         })
         .catch((err) => {
@@ -67,9 +66,6 @@ app.post('/personlist', function (req, res) {
 
 app.get('/personnew', function(req, res){
     res.render('personnew');
-})
-app.get('/personview', function(req, res){
-    res.render('personview');
 })
 
 app.get('/personlist/:id', (req, res) => {
