@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>PersonNew</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper blue light-4">
+        <a href="personlist" class="brand-logo"><i class="material-icons">schedule</i>Jerwell Gabilagon</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="">Contact</a></li>
+</ul>
+
+<div class="row" style="padding-top: 2%;">
+    <div class="col s3">
+    </div>
+    <div class="col s6">
+        <div class="row right-align">
+            <div class="col s2"></div>
+            <div class="col s4"></div>
+            <div class="col s4">
+                <script>
+                    let val = localStorage.getItem('country');
+                    document.write('<div><img src="http://purecatamphetamine.github.io/country-flag-icons/3x2/'+ val +'.svg" width="100"  height="100"/></div>');
+                </script>
+            </div>
+            <div class="col s2"></div>
+        </div>
+        <div class="container">
+            <div class="card blue light-4">
+                <div class="card-content white-text">
+                    <span class="card-title">New Person</span>
+
+                    <form class="container" action="/personlist" method="POST">
+                        <div class = "row">
+                        <div class="input-field col s12">
+                            <input id="fullname" type="text" name="fullname" required>
+                            <label for="fullname">Full Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <script>
+                                let v = "";
+                                let nationality = ["Filipino", "Russian", "Japanese","American", "Korean"];
+                                switch(val) {
+                                    case 'PH':
+                                        v = nationality[0];
+                                        break;
+                                    case 'RU':
+                                        v = nationality[1];
+                                        break;
+                                    case 'JP':
+                                        v = nationality[2];
+                                        break;
+                                    case 'US':
+                                        v = nationality[3];
+                                        break;
+                                    case 'KR':
+                                        v = nationality[4];
+                                        break; 
+                                    default:
+                                        v = "Nothing";
+                                }
+                                document.write('<input readonly="true" value="'+ v +'" id="nationality" type="email" class="validate" name="nationality">')
+                                document.write('<label for="nationality">Nationality</label>')
+                            </script>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="birthday" type="text" name="birthday" required>
+                            <label for="birthday">Birthdate</label>
+                        </div>
+                        <div class="input-field col s12 right-align">
+                            <a href="personlist">
+                                <button class="btn waves-effect waves-light" type="submit">Save <i class="material-icons right">backup</i></button>
+                            </a>
+                        </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3">
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+    });
+
+</script>
+
+</body>
+
+</html>

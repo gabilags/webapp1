@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>PersonList</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.fr,Intl.~locale.pt"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper blue light-4">
+        <a href="personlist" class="brand-logo"><i class="material-icons">schedule</i>Jerwell Gabilagon</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="">Contact</a></li>
+</ul>
+
+<div class="row" style="padding-top: 4%;">
+    <div class="col s4"></div>
+    <div class="col s2">
+        <script>
+            var val = localStorage.getItem('country');
+            document.write('<img src="http://purecatamphetamine.github.io/country-flag-icons/3x2/'+ val +'.svg" width="200"  height="200"/>');
+        </script>
+    </div>
+    <div class="col s4">
+        <script>
+            let datetime = "";
+            let currentDate = "";
+            let currentTime = "";
+            let timeZ="";
+
+            if(val == 'PH'){
+                datetime = '<%= dataList[0]["datetime"] %>';
+                timeZ = '<%= dataList[0]["timezone"] %>';
+            }else if(val == 'RU'){
+                datetime = '<%= dataList[1]["datetime"] %>';
+                timeZ = '<%= dataList[1]["timezone"] %>';
+            }else if(val == 'JP'){
+                datetime = '<%= dataList[2]["datetime"] %>';
+                timeZ = '<%= dataList[2]["timezone"] %>';
+            }else if(val == 'US'){
+                datetime = '<%= dataList[3]["datetime"] %>';
+                timeZ = '<%= dataList[3]["timezone"] %>';
+            }else{
+                datetime = '<%= dataList[4]["datetime"] %>';
+                timeZ = '<%= dataList[4]["timezone"] %>';
+            }
+
+            var time = new Date(datetime);
+            optionstime = {
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+                hour12: true,
+                timeZone: timeZ,
+            };
+            optionsdate = {
+                year: 'numeric', month: 'long', day: 'numeric',
+                timeZone: timeZ,
+            };
+            currentTime = new Intl.DateTimeFormat('en-US', optionstime).format(time);
+            currentDate = new Intl.DateTimeFormat('en-US', optionsdate).format(time);
+
+            document.write('<h2 style="color: white">'+ currentDate +'</h2>');
+            document.write('<h4 style="color: white">'+ currentTime +'</h4>');
+        </script>
+    </div>
+    <div class="col s2"></div>
+</div>
+
+<div class="row" style="padding-top: 2%;">
+    <div class="col s2"></div>
+    <div class="col s8 right-align">
+        <a href="personnew">
+            <button class="btn waves-effect waves-light" type="submit">New <i class="material-icons right">add</i></button>
+        </a>
+    </div>
+    <div class="col s2"></div>
+
+</div>
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        <table class="responsive-table bordered centered" style="color: white;">
+            <thead class="blue light-4">
+              <tr>
+                  <th>#</th>
+                  <th>Person Name</th>
+                  <th>Birthdate</th>
+                  <th>Nationality</th>
+                  <th>Action</th>
+              </tr>
+            </thead>  
+            <tbody>
+                <% var num = 0; %> 
+                <% if (persons.length > 0) { %>
+                    <% persons.forEach(person => { %>
+                        <tr> 
+                        <td><%= num = num + 1 %> </td>
+                        <td><%= person.fullname %> </td>
+                        <td><%= person.nationality %> </td>
+                        <td><%= person.birthday %> </td>
+                        <td><a class="single" href="/personlist/<%= person._id %> ">[View]</a></td>
+                        </tr>
+                    <% }) %>                  
+                <% } %>
+            </tbody>
+          </table>
+    </div>
+    <div class="col s2"></div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+    });
+</script>
+
+</body>
+
+</html>

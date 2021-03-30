@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>PersonView</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body style="background-color: #145DA0;">
+<nav>
+    <div class="nav-wrapper blue light-4">
+        <a href="personlist" class="brand-logo"><i class="material-icons">schedule</i>Jerwell Gabilagon</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="">Contact</a></li>
+</ul>
+
+<div class="row" style="padding-top: 2%;">
+    <div class="col s3"></div>
+    <div class="col s6">
+        <div class="row right-align">
+            <div class="col s2"></div>
+            <div class="col s4"></div>
+            <div class="col s4">
+                <script>
+                    let v="";
+                    switch("<%= details['nationality'] %>") {
+                        case 'Filipino':
+                            v = "PH";
+                            break;
+                        case 'Russian':
+                            v = "RU";
+                            break;
+                        case 'Japanese':
+                            v = "JP";
+                            break;
+                        case 'American':
+                            v = "US";
+                            break;
+                        case 'Korean':
+                            v = "KR";
+                            break; 
+                        default:
+                            v = "Nothing";
+                    }
+
+                    document.write('<div><img src="http://purecatamphetamine.github.io/country-flag-icons/3x2/'+ v +'.svg" width="100"  height="100"/></div>');
+                </script>
+            </div>
+            <div class="col s2"></div>
+        </div>
+        <div class="container">
+            <div class="card blue light-4">
+                <div class="card-content white-text">
+                    <span class="card-title">View Person</span>
+                    <form class="container">
+                        <div class = "row">
+                        <div class="input-field col s12">
+                            <input readonly="true" id="fullname" value='<%= details["fullname"] %> '>
+                        </div>
+                        <div class="input-field col s12">
+                            <input readonly="true" id="nationality" value="<%= details['nationality'] %> ">
+                        </div>
+                        <div class="input-field col s12">
+                            <input readonly="true" id="birthday" value="<%= details['birthday'] %> ">
+                        </div>
+                        <div class="input-field col s12 right-align">
+                            <a href="personlist">
+                                <button class="btn waves-effect waves-light" type="submit">Exit <i class="material-icons right">backspace</i></button>
+                            </a>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s3"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+    });
+
+</script>
+
+</body>
+
+</html>

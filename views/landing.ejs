@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body>
+
+<div class="parent">
+    <h1 style="color:white;">Jerwell Gabilagon</h1>
+    <div class="link">
+        <a href="https://www.facebook.com/jerwelljones.gabilagon.1/" target="_blank" style="padding-right: 20px;"><img src="facebook.png" style="width: 50; height: 50; "></a>
+        <a href="https://github.com/gabilags" target="_blank"><img src="github.png" style="width: 50; height: 50;"></a>
+    </div>
+    <div class="row">
+        <div class="input-field col s9">
+            <select id="mySelect" class="icons">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="PH" data-icon="http://purecatamphetamine.github.io/country-flag-icons/3x2/PH.svg" class="left circle">Philippines</option>
+                <option value="RU" data-icon="http://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" class="left circle">Russia</option>
+                <option value="JP" data-icon="http://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" class="left circle">Japan</option>
+                <option value="US" data-icon="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" class="left circle">USA</option>
+                <option value="KR" data-icon="http://purecatamphetamine.github.io/country-flag-icons/3x2/KR.svg" class="left circle">Korea</option>
+              </select>
+        </div>
+        <div class="input-field col s3">
+            <a href="personlist" class="waves-effect waves-light btn" onclick="storeCountry()">Join</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+
+    function storeCountry() {
+        var country = document.getElementById("mySelect").value;
+        localStorage.setItem('country', country);
+    }
+</script>
+
+</body>
+
+</html>
