@@ -19,9 +19,26 @@ app.set('view engine', 'ejs');
 app.use(express.static('css'));
 app.use(express.static('assets'));
 app.use(express.urlencoded({extended: true}));
-   
+
+
 app.get('/', function (req, res) {
-    res.render('landing');
+    Promise.all([
+        fetch('http://worldtimeapi.org/api/timezone/Asia/Manila'),
+        fetch('http://worldtimeapi.org/api/timezone/Europe/Moscow'),
+        fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo'),
+        fetch('http://worldtimeapi.org/api/timezone/America/Detroit'),
+        fetch('http://worldtimeapi.org/api/timezone/Asia/Seoul')
+    ]).then(function (responses) {
+        return Promise.all(responses.map(function (response) {
+            return response.json();
+        }));
+    }).then(function (data) {
+        datetime = data;
+        res.render('landing');
+    }).catch(function (error) {
+        console.log(error);
+    });
+    
 })
 
 
@@ -29,21 +46,6 @@ app.get('/personlist', function (req, res) {
     Person.find().sort({createdAt: -1})
         .then((result) => {
             //api call using Promise.all from node-fetch package
-            Promise.all([
-                fetch('http://worldtimeapi.org/api/timezone/Asia/Manila'),
-                fetch('http://worldtimeapi.org/api/timezone/Europe/Moscow'),
-                fetch('http://worldtimeapi.org/api/timezone/Asia/Tokyo'),
-                fetch('http://worldtimeapi.org/api/timezone/America/Detroit'),
-                fetch('http://worldtimeapi.org/api/timezone/Asia/Seoul')
-            ]).then(function (responses) {
-                return Promise.all(responses.map(function (response) {
-                    return response.json();
-                }));
-            }).then(function (data) {
-                datetime = data;
-            }).catch(function (error) {
-                console.log(error);
-            });
             res.render('personlist', {dataList: datetime, persons: result});
         })
         .catch((err) => {
